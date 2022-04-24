@@ -7,6 +7,7 @@ function App() {
   const onChange = (e) => {
     setMinutes(e.target.value);
   };
+  const setValue = minutes / 60;
   return (
     <>
       <h1>Title: React Converter</h1>
@@ -18,9 +19,15 @@ function App() {
         onChange={onChange}
         type="number"
       />
-      <h4>Your value {minutes}</h4>
+
       <label htmlFor="hours">hours</label>
-      <input id="hours" placeholder="hours" type="number" />
+      <input
+        value={setValue.toFixed(2)}
+        id="hours"
+        placeholder="hours"
+        type="number"
+        readOnly
+      />
     </>
   );
 }
