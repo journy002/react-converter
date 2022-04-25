@@ -3,46 +3,39 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [minutes, setMinutes] = useState();
-  const [hours, setHours] = useState();
+  const [amount, setAmount] = useState();
   const [filp, setFilp] = useState(false);
 
-  const onChange = (e) => {
-    setMinutes(e.target.value);
-  };
-  const onHours = (e) => {
-    setHours(e.target.value);
-  };
-  const onReset = () => {
-    setMinutes("");
+  const onChange = (e) => setAmount(e.target.value);
+  const onReset = () => setAmount(0);
+  const onFilp = () => {
+    onReset();
+    setFilp((current) => !current);
   };
 
-  const onFilp = () => setFilp((current) => !current);
-  const setValue = minutes / 60;
-  const setValue2 = hours * 60;
   return (
     <>
       <div>
         <h1>Title: React Converter</h1>
         <label htmlFor="minutes">Minutes</label>
         <input
-          value={minutes || "" || setValue2.toFixed(2)}
+          value={filp ? amount * 60 : amount}
           id="minutes"
           placeholder="Minutes"
           onChange={onChange}
           type="number"
-          disabled={filp === true}
+          disabled={filp}
         />
       </div>
       <div>
         <label htmlFor="hours">hours</label>
         <input
-          value={hours || setValue.toFixed(2) || ""}
+          value={filp ? amount : Math.round(amount / 60)}
           id="hours"
           placeholder="hours"
-          onChange={onHours}
+          onChange={onChange}
           type="number"
-          disabled={filp === false}
+          disabled={!filp}
         />
       </div>
       <button onClick={onReset}>Reset</button>
